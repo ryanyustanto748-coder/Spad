@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LK21 Klon - Nonton Film Gratis Online</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header>
+        <div class="navbar">
+            <div class="logo"><i class="fas fa-film" style="color: #ff4757;"></i> LAYARKACA<span>21</span></div>
+            <nav>
+                <button id="btn-nav-home" class="active"><i class="fas fa-home"></i> Home</button>
+                <button id="btn-nav-manage"><i class="fas fa-plus-circle"></i> Tambah Film</button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <section id="section-home">
+            <div class="search-wrapper">
+                <h1>Nonton Film Online Subtitle Indonesia</h1>
+                <p>Cari data langsung dari API global atau kelola database lokal Anda.</p>
+                <div class="search-box">
+                    <input type="text" id="search-input" placeholder="Masukkan judul film, contoh: Avengers, Batman, Naruto...">
+                    <button id="search-btn"><i class="fas fa-search"></i> Cari</button>
+                </div>
+            </div>
+
+            <h2 class="section-title"><i class="fas fa-fire" style="color: #ffa502;"></i> Update Film Terbaru</h2>
+            <div id="movie-grid" class="movie-grid"></div>
+        </section>
+
+        <section id="section-manage" class="hidden">
+            <div class="manage-container">
+                <div class="form-card">
+                    <h2 id="form-title">Tambah / Update Film Kustom</h2>
+                    <form id="movie-form">
+                        <input type="hidden" id="movie-id">
+
+                        <div class="form-group">
+                            <label for="movie-title">Judul Film</label>
+                            <input type="text" id="movie-title" required placeholder="Contoh: KKN di Desa Penari 2">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="movie-year">Tahun Rilis</label>
+                            <input type="number" id="movie-year" required placeholder="Contoh: 2026">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="movie-poster">URL Poster Film</label>
+                            <input type="url" id="movie-poster" placeholder="https://example.com/poster.jpg (Kosongkan untuk default)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="movie-plot">Sinopsis / Deskripsi</label>
+                            <textarea id="movie-plot" rows="4" required placeholder="Tulis sinopsis cerita di sini..."></textarea>
+                        </div>
+
+                        <div class="form-buttons">
+                            <button type="submit" id="submit-btn" class="btn-primary">Simpan Film</button>
+                            <button type="button" id="cancel-btn" class="btn-secondary hidden">Batal Edit</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="custom-list-card">
+                    <h2>Daftar Koleksi Anda</h2>
+                    <div id="custom-movies-list"></div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="movie-modal" class="modal hidden">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <div id="modal-body"></div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 LAYARKACA21 Klon. All Rights Reserved. Powered by OMDb API.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
