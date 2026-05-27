@@ -8,23 +8,138 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
+        * {
+            box-sizing: border-box;
+        }
+        
         body {
-            background-image: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), url('https://i.pinimg.com/736x/07/b5/72/07b5727ac95e437cdde2988880ca76d5.jpg');
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.6)), url('https://thumbs.dreamstime.com/b/vintage-film-background-10772308.jpg');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             background-attachment: fixed;
-            color: #ffffff; /* Memastikan teks utama berwarna putih agar kontras */
+            color: #ffffff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        /* Membuat header transparan modern */
+        header {
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        /* Wadah utama dibuat agak transparan agar background film di belakangnya mengintip */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 20px;
+            background: rgba(20, 20, 20, 0.55); /* Kotak hitam transparan */
+            backdrop-filter: blur(8px); /* Efek blur kaca halus */
+            -webkit-backdrop-filter: blur(8px);
+            border-radius: 16px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* Mempercantik tampilan pencarian */
+        .search-wrapper {
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .search-wrapper h1 {
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+            margin-bottom: 10px;
+        }
+
+        .search-box {
+            display: flex;
+            justify-content: center;
+            margin-top: 25px;
+        }
+
+        .search-box input {
+            width: 60%;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            background: rgba(255, 255, 255, 0.9);
+            font-size: 1rem;
+        }
+
+        .search-box button {
+            padding: 15px 25px;
+            border: none;
+            background: #ff4757;
+            color: white;
+            font-weight: bold;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .search-box button:hover {
+            background: #e22f3f;
+        }
+
+        /* Desain tombol genre */
+        .genre-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 30px;
+        }
+
+        .genre-btn {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .genre-btn:hover, .genre-btn.active {
+            background: #ff4757;
+            border-color: #ff4757;
+            box-shadow: 0 0 10px rgba(255, 71, 87, 0.5);
+        }
+
+        .section-title {
+            border-left: 4px solid #ffa502;
+            padding-left: 10px;
+            margin-bottom: 20px;
+        }
+
+        /* Footer transparan */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="navbar">
-            <div class="logo"><i class="fas fa-film" style="color: #ff4757;"></i> LAYARKACA<span>21</span></div>
+        <div class="navbar" style="display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 15px 20px;">
+            <div class="logo" style="font-size: 1.5rem; font-weight: bold; letter-spacing: 1px;">
+                <i class="fas fa-film" style="color: #ff4757;"></i> LAYARKACA<span style="color: #ffa502;">21</span>
+            </div>
             <nav>
-                <button id="btn-nav-home" class="active"><i class="fas fa-home"></i> Home</button>
+                <button id="btn-nav-home" class="active" style="background: #ff4757; color: white; border: none; padding: 8px 16px; border-radius: 5px; cursor: pointer;"><i class="fas fa-home"></i> Home</button>
             </nav>
         </div>
     </header>
@@ -33,7 +148,7 @@
         <section id="section-home">
             <div class="search-wrapper">
                 <h1>Nonton Film Online Subtitle Indonesia Gratis</h1>
-                <p>Akses ribuan database film bioskop dunia terlengkap dan terupdate setiap hari.</p>
+                <p style="color: #ccc;">Akses ribuan database film bioskop dunia terlengkap dan terupdate setiap hari.</p>
                 <div class="search-box">
                     <input type="text" id="search-input" placeholder="Cari judul film favorit Anda di sini...">
                     <button id="search-btn"><i class="fas fa-search"></i> Cari Film</button>
