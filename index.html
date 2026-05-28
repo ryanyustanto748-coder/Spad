@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>NekoStream - Portal Katalog Anime</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+    <header class="app-header">
+        <span class="brand-title"><i class="fa-solid fa-play me-2"></i>NekoStream</span>
+        <span class="badge bg-danger">MOBILE v3</span>
+    </header>
+
+    <div id="playerSection" class="d-none">
+        <div class="video-container">
+            <iframe id="mainIframe" src="" allowfullscreen allow="autoplay"></iframe>
+        </div>
+        <div class="player-details">
+            <h5 id="nowPlayingTitle" class="text-white mb-2">Judul Anime</h5>
+            <div class="server-box">
+                <p class="text-muted small mb-2"><i class="fa-solid fa-server me-1"></i> Ganti Server Video jika server utama error:</p>
+                <div id="serverList" class="d-flex flex-wrap gap-2"></div>
+            </div>
+            <a id="adsterraDownloadBtn" href="https://www.highrevenuegate.com/your-adsterra-direct-link-here" target="_blank" class="btn-download">
+                <i class="fa-solid fa-circle-down me-2"></i>Download / Streaming Alt (Adsterra)
+            </a>
+        </div>
+    </div>
+
+    <div class="p-3 search-sticky-box">
+        <div class="input-group mb-2">
+            <span class="input-group-text search-icon-container"><i class="fa-solid fa-magnifying-glass text-white"></i></span>
+            <input type="text" id="searchField" class="form-control input-search" placeholder="Cari judul anime di sini...">
+        </div>
+        
+        <div class="genre-container d-flex gap-2 py-1">
+            <button class="btn-genre active" onclick="filterGenre('All')">Semua</button><button class="btn-genre" onclick="filterGenre('Action')">Action</button><button class="btn-genre" onclick="filterGenre('Adventure')">Adventure</button><button class="btn-genre" onclick="filterGenre('Award Winning')">Award Winning</button><button class="btn-genre" onclick="filterGenre('Comedy')">Comedy</button><button class="btn-genre" onclick="filterGenre('Drama')">Drama</button><button class="btn-genre" onclick="filterGenre('Ecchi')">Ecchi</button><button class="btn-genre" onclick="filterGenre('Fantasy')">Fantasy</button><button class="btn-genre" onclick="filterGenre('Horror')">Horror</button><button class="btn-genre" onclick="filterGenre('Romance')">Romance</button><button class="btn-genre" onclick="filterGenre('Sci-Fi')">Sci-Fi</button><button class="btn-genre" onclick="filterGenre('Sports')">Sports</button><button class="btn-genre" onclick="filterGenre('Supernatural')">Supernatural</button><button class="btn-genre" onclick="filterGenre('Suspense')">Suspense</button>
+        </div>
+    </div>
+
+    <div id="homeTab" class="content-tab mt-2">
+        <h5 class="section-title" id="katalogTitle">Katalog Anime Terbaru</h5>
+        <div class="row row-cols-2 gx-3 gy-3 px-3" id="animeGrid"></div>
+    </div>
+
+    <footer class="text-center text-muted py-4 mt-4" style="font-size: 0.75rem; margin-bottom: 40px;">
+        <p>&copy; NekoStream Premium Portal - Jikan MAL Engine</p>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
