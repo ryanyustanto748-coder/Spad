@@ -1,0 +1,180 @@
+:root {
+    --bg-main: #0a0b0d;
+    --bg-card: #16171d;
+    --accent: #ff385c;
+    --text-main: #ffffff;
+    --text-muted: #8a8d98;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    margin: 0;
+}
+
+.app-header {
+    background-color: var(--bg-card);
+    padding: 14px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #242631;
+}
+
+.brand-title {
+    color: var(--accent);
+    font-weight: 800;
+    font-size: 1.3rem;
+}
+
+.search-sticky-box {
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background-color: var(--bg-main);
+    border-bottom: 1px solid #1f2026;
+}
+
+.search-icon-container {
+    background-color: var(--bg-card) !important;
+    border: 1px solid #2b2d3c !important;
+    border-right: none !important;
+}
+
+.input-search {
+    background-color: var(--bg-card) !important;
+    border: 1px solid #2b2d3c !important;
+    color: #fff !important;
+}
+
+.input-search:focus {
+    box-shadow: none !important;
+    border-color: var(--accent) !important;
+}
+
+/* HORIZONTAL SCROLL UNTUK FILTER KATEGORI/GENRE */
+.genre-container {
+    overflow-x: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+}
+.genre-container::-webkit-scrollbar {
+    display: none;
+}
+
+.btn-genre {
+    background-color: var(--bg-card);
+    color: var(--text-muted);
+    border: 1px solid #242631;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-genre.active, .btn-genre:hover {
+    background-color: var(--accent);
+    color: #fff;
+    border-color: var(--accent);
+}
+
+.section-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    margin: 12px 16px;
+    color: #fff;
+}
+
+.anime-mobile-card {
+    background: var(--bg-card);
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid #20222e;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.img-wrapper {
+    position: relative;
+    width: 100%;
+    height: 230px;
+}
+
+.img-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.card-meta {
+    padding: 8px;
+}
+
+.card-meta h6 {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+    color: #fff;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.genre-tag-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.video-container {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    background: #000;
+}
+
+.video-container iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%; border: 0;
+}
+
+.player-details {
+    padding: 14px;
+    background: var(--bg-card);
+    border-bottom: 1px solid #20222e;
+}
+
+.btn-srv {
+    background: #0a0b0d;
+    color: #fff;
+    border: 1px solid #242631;
+    padding: 5px 12px;
+    font-size: 0.7rem;
+    border-radius: 4px;
+}
+
+.btn-srv.active {
+    background: var(--accent);
+    border-color: var(--accent);
+}
+
+.btn-download {
+    background: #10b981;
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 0.85rem;
+    margin-top: 10px;
+}
