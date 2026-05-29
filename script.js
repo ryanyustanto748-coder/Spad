@@ -1,5 +1,5 @@
 const API_KEY = 'bd531db7';
-const defaultMovies = ['tt0111161', 'tt1375666', 'tt0816692', 'tt1160419', 'tt2382320', 'tt6751668', 'tt10872600', 'tt0468569'];
+const defaultMovies = ['bd531db7', 'tt1375666', 'tt0816692', 'tt1160419', 'tt2382320', 'tt6751668', 'tt10872600', 'tt0468569'];
 
 const indonesianPlots = {
     'tt0111161': 'Dua pria yang dipenjara menjalin persahabatan selama bertahun-tahun, menemukan pelipur lara dan penebusan akhirnya melalui tindakan belas kasih yang biasa.',
