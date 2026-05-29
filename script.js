@@ -20,7 +20,7 @@ async function loadDefaultMovies() {
     // Memproses data secara paralel agar loading cepat selesai
     const promises = defaultMovies.map(async (id) => {
         try {
-            const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+            const res = await fetch(`https://www.omdbapi.com/?apikey=${bd531db7}&i=${id}`);
             const movie = await res.json();
             if (movie.Response === "True") {
                 appendMovieToGrid(movie);
@@ -44,13 +44,13 @@ async function searchMovies() {
     grid.innerHTML = '';
 
     try {
-        const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}&type=movie`);
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${bd531db7}&s=${encodeURIComponent(query)}&type=movie`);
         const data = await res.json();
 
         if (data.Response === "True") {
             const detailPromises = data.Search.slice(0, 8).map(async (m) => {
                 if (m.Poster && m.Poster !== "N/A") {
-                    const detailRes = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${m.imdbID}`);
+                    const detailRes = await fetch(`https://www.omdbapi.com/?apikey=${bd531db7}&i=${m.imdbID}`);
                     const detailMovie = await detailRes.json();
                     appendMovieToGrid(detailMovie);
                 }
