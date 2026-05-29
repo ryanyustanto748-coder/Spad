@@ -1,39 +1,138 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Retro Space Cinema</title>
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
+// GANTI API_KEY ini dengan milik Anda sendiri jika limitnya habis
+const API_KEY = 'bd531db7'; 
+const defaultMovies = ['tt0111161', 'tt1375666', 'tt0816692', 'tt1160419', 'tt2382320', 'tt6751668', 'tt10872600', 'tt0468569'];
 
-    <header>
-        <h1>Retro Space Cinema</h1>
-        <div class="search-container">
-            <input type="text" id="search-input" placeholder="Cari film favoritmu...">
-            <button onclick="searchMovies()">Cari</button>
+const indonesianPlots = {
+    'tt0111161': 'Dua pria yang dipenjara menjalin persahabatan selama bertahun-tahun, menemukan pelipur lara dan penebusan akhirnya melalui tindakan belas kasih yang biasa.',
+    'tt1375666': 'Seorang pencuri yang mencuri rahasia perusahaan melalui penggunaan teknologi berbagi mimpi diberi tugas terbalik untuk menanamkan ide ke dalam pikiran seorang CEO.',
+    'tt0816692': 'Sebuah tim penjelajah melakukan perjalanan melalui lubang cacing di luar aquaspace dalam upaya untuk memastikan kelangsungan hidup umat manusia.',
+    'tt1160419': 'Shang-Chi, ahli seni bela diri, harus menghadapi masa lalu yang dia pikir telah dia tinggalkan ketika dia ditarik ke dalam jaringan organisasi Sepuluh Cincin yang misterius.',
+    'tt2382320': 'Kisah hidup J. Robert Oppenheimer saat ia memimpin Proyek Manhattan untuk menciptakan bom atom pertama di dunia.',
+    'tt6751668': 'Keserakahan dan diskriminasi kelas mengancam hubungan simbiosis yang baru terbentuk antara keluarga Park yang kaya dan keluarga Kim yang miskin.',
+    'tt10872600': 'Identitas Spider-Man sekarang terungkap, membawanya meminta bantuan kepada Doctor Strange. Namun ketika mantra salah, musuh berbahaya dari dunia lain mulai bermunculan.',
+    'tt0468569': 'Ketika ancaman yang dikenal sebagai Joker mengacaukan ketertiban di Gotham, Batman harus menerima salah satu tes psikologis dan fisik terbesar untuk melawan ketidakadilan.'
+};
+
+async function loadDefaultMovies() {
+    showLoading(true);
+    const grid = document.getElementById('movie-grid');
+    if (grid) grid.innerHTML = '';
+    
+    const promises = defaultMovies.map(async (id) => {
+        try {
+            const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${id}`);
+            const movie = await res.json();
+            
+            if (movie.Response === "True") {
+                appendMovieToGrid(movie);
+            } else {
+                // Membantu tracking jika API Key bermasalah/expired
+                console.warn(`OMDb Error untuk ID ${id}:`, movie.Error);
+            }
+        } catch (err) {
+            console.error("Gagal memuat ID: " + id, err);
+        }
+    });
+
+    await Promise.all(promises);
+    showLoading(false);
+}
+
+async function searchMovies() {
+    const query = document.getElementById('search-input').value.trim();
+    if (!query) return;
+
+    showLoading(true);
+    
+    const sectionTitle = document.getElementById('section-title');
+    if (sectionTitle) sectionTitle.innerText = `Hasil Pencarian: "${query}"`;
+    
+    const grid = document.getElementById('movie-grid');
+    if (grid) grid.innerHTML = '';
+
+    try {
+        const res = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&s=${encodeURIComponent(query)}&type=movie`);
+        const data = await res.json();
+
+        if (data.Response === "True") {
+            // Mengambil maksimal 8 film, walaupun film tidak punya poster tetap diproses
+            const detailPromises = data.Search.slice(0, 8).map(async (m) => {
+                try {
+                    const detailRes = await fetch(`https://www.omdbapi.com/?apikey=${API_KEY}&i=${m.imdbID}`);
+                    const detailMovie = await detailRes.json();
+                    if (detailMovie.Response === "True") {
+                        appendMovieToGrid(detailMovie);
+                    }
+                } catch (detailErr) {
+                    console.error("Gagal memuat detail untuk ID: " + m.imdbID, detailErr);
+                }
+            });
+            await Promise.all(detailPromises);
+        } else {
+            if (grid) grid.innerHTML = `<p style="grid-column: span 2; text-align:center; padding:20px;">Film tidak ditemukan atau API Key Limit. (${data.Error})</p>`;
+        }
+    } catch (err) {
+        if (grid) grid.innerHTML = `<p style="grid-column: span 2; text-align:center; color:red;">Gagal memuat data dari server.</p>`;
+        console.error("Search error:", err);
+    }
+    showLoading(false);
+}
+
+function appendMovieToGrid(movie) {
+    const grid = document.getElementById('movie-grid');
+    if (!grid) return;
+    
+    const poster = (movie.Poster && movie.Poster !== "N/A") ? movie.Poster : 'https://via.placeholder.com/300x450?text=No+Poster';
+    
+    const card = document.createElement('div');
+    card.className = 'movie-card';
+    
+    let deskripsiIndo = indonesianPlots[movie.imdbID] || (movie.Plot && movie.Plot !== "N/A" ? movie.Plot : "Tidak ada deskripsi.");
+    if (deskripsiIndo === movie.Plot && movie.Plot !== "N/A") {
+        deskripsiIndo = "[Sinopsis] " + movie.Plot;
+    }
+
+    card.onclick = () => openPlayer(movie.imdbID, movie.Title, `${movie.Year} • ${movie.Runtime || 'N/A'} • Rating: ${movie.imdbRating || 'N/A'}`, deskripsiIndo);
+
+    card.innerHTML = `
+        <img src="${poster}" alt="${movie.Title}">
+        <div class="movie-info">
+            <h3>${movie.Title}</h3>
+            <span>${movie.Year} • ⭐ ${movie.imdbRating || 'N/A'}</span>
         </div>
-    </header>
+    `;
+    grid.appendChild(card);
+}
 
-    <main>
-        <div id="section-title" class="section-title">Film Rekomendasi Hari Ini</div>
-        <div id="loading">Memuat data antariksa...</div>
-        <div class="movie-grid" id="movie-grid"></div>
-    </main>
+function openPlayer(imdbId, title, meta, plot) {
+    const modal = document.getElementById('player-modal');
+    const iframe = document.getElementById('video-iframe');
+    
+    if (iframe) iframe.src = `https://vidsrc.to/embed/movie/${imdbId}`;
+    
+    if (modal) {
+        document.getElementById('modal-title').innerText = title;
+        document.getElementById('modal-meta').innerText = meta;
+        document.getElementById('modal-plot').innerText = plot;
+        
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden';
+    }
+}
 
-    <div id="player-modal" class="player-modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closePlayer()">&times;</span>
-            <div class="video-wrapper">
-                <iframe id="video-iframe" src="" allowfullscreen></iframe>
-            </div>
-            <h2 id="modal-title" class="movie-detail-title">-</h2>
-            <div id="modal-meta" class="movie-meta">-</div>
-            <p id="modal-plot" class="movie-plot">-</p>
-        </div>
-    </div>
+function closePlayer() {
+    const modal = document.getElementById('player-modal');
+    const iframe = document.getElementById('video-iframe');
+    if (iframe) iframe.src = ''; 
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto';
+    }
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+function showLoading(isLoading) {
+    const loadingEl = document.getElementById('loading');
+    if (loadingEl) loadingEl.style.display = isLoading ? 'block' : 'none';
+}
+
+window.onload = loadDefaultMovies;
