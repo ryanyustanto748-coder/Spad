@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <div style="position:fixed;left:0;top:50%;transform:translateY(-50%);background:#007bff;color:#fff;padding:12px 20px;border-radius:0 8px 8px 0;font-family:Arial,sans-serif;font-weight:bold;">
+    Hello World
+</div>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<style>
+body{margin:0;background:#000}
+video{
+  width:100%;
+  height:auto;
+  aspect-ratio:16/9;
+  background:#000;
+}
+</style>
+</head>
+<body>
+
+<video id="video" controls playsinline></video>
+
+<script>
+const video = document.getElementById('video');
+const videoSrc = 'https://vidlink.pro';
+
+if (Hls.isSupported()) {
+  const hls = new Hls();
+  hls.loadSource(videoSrc);
+  hls.attachMedia(video);
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+  video.src = videoSrc;
+}
+</script>
+
+</body>
+</html>
